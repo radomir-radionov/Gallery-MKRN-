@@ -1,5 +1,7 @@
 ## Gallery App
 
+***Plan to add toasts if it's  important  just write me https://www.linkedin.com/in/radomir-radionov/*** 
+
 ### Stack
 
 - `client`
