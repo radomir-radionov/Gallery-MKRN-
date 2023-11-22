@@ -4,7 +4,7 @@
   "description": "1",
   "main": "index.js",
   "scripts": {
-    "install-all": "yarn --cwd client install && yarn --cwd server install",
+    "install-all": "yarn install && yarn --cwd client install && yarn --cwd server install",
     "start-all": "concurrently \"yarn --cwd client dev\" \"yarn --cwd server start\""
   },
   "author": "Radomir R",
