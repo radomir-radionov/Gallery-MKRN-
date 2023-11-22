@@ -2,6 +2,7 @@
   "type": "module",
   "name": "server",
   "version": "1.0.0",
+  "author": "Radomir R",
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js"

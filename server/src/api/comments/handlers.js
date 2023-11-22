@@ -14,8 +14,11 @@ const addComment = async (ctx, next) => {
       commentText: commentText,
     });
 
-    const updatedPhoto = await photo.save();
-    ctx.body = updatedPhoto;
+    await photo.save();
+
+    ctx.body = {
+      message: 'Комментарий успешно добавлен',
+    };
   }
 
   await next();
