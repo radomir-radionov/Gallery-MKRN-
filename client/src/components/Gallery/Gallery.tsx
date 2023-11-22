@@ -8,7 +8,7 @@ import checkPhotoExistence from 'utils/checkPhotoExistence';
 const Gallery = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<TPhoto | null>(null);
-  const { data: photos = [] } = useGetPhotosQuery();
+  const { data: photos = [] as TPhoto[] } = useGetPhotosQuery();
 
   const handlePhotoClick = (photo: TPhoto) => () => {
     setSelectedPhoto(photo);
