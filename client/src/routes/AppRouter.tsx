@@ -7,10 +7,10 @@ import {
 import { Home, Login, Loyaut, Registration } from 'pages';
 import { useSelector } from 'hooks/useSelector';
 import { useEffect } from 'react';
-import { useAuthQuery } from 'store/api/authApi';
+import { useAuthQuery } from 'store/api/api';
 
 const AppRouter = () => {
-  const isAuth = useSelector((state) => state.auth.isAuth);
+  const isAuth = useSelector((state) => state.app.isAuth);
   const token = localStorage.getItem('token') || '';
 
   const authQuery = useAuthQuery(undefined, {

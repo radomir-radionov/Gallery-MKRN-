@@ -1,13 +1,13 @@
 import { useSelector } from 'hooks/useSelector';
 import { useDispatch } from 'react-redux';
-import { authActions } from 'store/redux/auth';
+import { appActions } from 'store/redux/app';
 import { Link, NavbarStyled } from './styles';
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.auth.isAuth);
+  const isAuth = useSelector((state) => state.app.isAuth);
 
-  const handleLogoutClick = () => dispatch(authActions.logout());
+  const handleLogoutClick = () => dispatch(appActions.logout());
 
   return (
     <NavbarStyled>

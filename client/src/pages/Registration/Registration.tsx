@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Error, Spinner } from 'components/index';
 import { Button, FormGroup, Input, Label, RegisterForm, Title } from './styles';
-import { useRegistrationMutation } from 'store/api/authApi';
+import { useRegistrationMutation } from 'store/api/api';
 
 type TForm = {
   username: string;
@@ -28,6 +28,13 @@ const Registration = () => {
       return;
     }
 
+    if (data.password.length < 8) {
+      setCustomError('Password should be at least 8 characters');
+      return;
+    }
+
+    setCustomError(null);
+
     registration(data);
   };
 
@@ -37,8 +44,6 @@ const Registration = () => {
 
   return (
     <RegisterForm onSubmit={handleSubmit(submitForm)}>
-      {isError && <Error>{error}</Error>}
-      {customError && <Error>{customError}</Error>}
       <Title>Регистрация</Title>
       <FormGroup>
         <Label htmlFor='username'>Username</Label>
@@ -52,6 +57,8 @@ const Registration = () => {
         <Label htmlFor='confirmPassword'>Confirm Password</Label>
         <Input type='text' {...register('confirmPassword')} required />
       </FormGroup>
+      {isError && <Error>{error}</Error>}
+      {customError && <Error>{customError}</Error>}
       <Button type='submit' disabled={mutationLoading}>
         {mutationLoading ? <Spinner /> : 'Register'}
       </Button>

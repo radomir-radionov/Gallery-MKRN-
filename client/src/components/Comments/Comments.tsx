@@ -12,12 +12,14 @@ import {
 import {
   useAddNewCommentMutation,
   useDeleteCommentMutation,
-} from 'store/api/authApi';
+  useGetPhotosQuery,
+} from 'store/api/api';
 import { useSelector } from 'hooks/useSelector';
 import { TPhoto } from 'types/app';
+import { useEffect } from 'react';
 
 type TProps = {
-  data: TPhoto | null;
+  data: TPhoto;
 };
 
 type TFormComment = {
@@ -25,18 +27,25 @@ type TFormComment = {
 };
 
 const Comments = ({ data }: TProps) => {
-  const user = useSelector((state) => state.auth.currentUser);
+  const user = useSelector((state) => state.app.currentUser);
+  const getPhotos = useGetPhotosQuery();
   const [addNewComment] = useAddNewCommentMutation();
   const [deleteComment] = useDeleteCommentMutation();
 
   const { register, handleSubmit, reset } = useForm<TFormComment>();
+
   const handleFormSubmit = ({ commentText }: TFormComment) => {
-    addNewComment({ user, photoId: data?._id, commentText });
+    addNewComment({ user, photoId: data._id, commentText });
     reset();
   };
 
-  const handleBtnDeleteClick = (commentId: string) => () =>
+  const handleBtnDeleteClick = (commentId: string) => () => {
     deleteComment(commentId);
+  };
+
+  useEffect(() => {
+    getPhotos;
+  }, [getPhotos]);
 
   return (
     <CommentsStyled>

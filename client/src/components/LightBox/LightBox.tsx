@@ -11,7 +11,7 @@ import {
 import { TPhoto } from 'types/app';
 
 type TProps = {
-  photo: TPhoto | null;
+  photo: TPhoto;
   onClose: () => void;
 };
 
@@ -24,7 +24,7 @@ const LightBox = ({ photo, onClose }: TProps) => {
         </Header>
         <PreviewImg>
           <ImgBox>
-            <Img src={photo?.url} alt='photo' />
+            <Img src={photo.url} alt='photo' />
           </ImgBox>
         </PreviewImg>
         <Comments data={photo} />

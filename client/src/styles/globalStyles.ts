@@ -10,8 +10,12 @@ const GlobalStyles = createGlobalStyle`
 }
 
 
-body {   
+body {    
   scroll-behavior: smooth;
+}
+
+.modalOpen {
+  overflow: hidden;
 }
 
 #root {

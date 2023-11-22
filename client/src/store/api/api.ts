@@ -1,5 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { authActions } from 'store/redux/auth';
+import { appActions } from 'store/redux/app';
+import { TPhoto } from 'types/app';
+import {
+  TPostAddNewComment,
+  TResDeleteComment,
+  TResAddNewComment,
+  TResAuth,
+  TResRegistration,
+  TGetRegistration,
+  TPostLogin,
+  TResLogin,
+} from './types';
 
 const backendURL = 'http://localhost:5000/';
 
@@ -17,9 +28,10 @@ export const appApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Comment'],
+  tagTypes: ['Photos', 'Comments', 'Comment'],
   endpoints: (builder) => ({
-    login: builder.mutation({
+    // auth
+    login: builder.mutation<TResLogin, TPostLogin>({
       query: ({ username, password }) => ({
         url: '/api/login',
         method: 'POST',
@@ -30,9 +42,8 @@ export const appApi = createApi({
           const {
             data: { user, token },
           } = await queryFulfilled;
-
-          dispatch(authActions.setUser(user));
-          dispatch(authActions.setAuth(true));
+          dispatch(appActions.setUser(user));
+          dispatch(appActions.setAuth(true));
 
           localStorage.setItem('token', token);
         } catch (err) {
@@ -40,14 +51,14 @@ export const appApi = createApi({
         }
       },
     }),
-    registration: builder.mutation({
+    registration: builder.mutation<TResRegistration, TGetRegistration>({
       query: ({ username, password }) => ({
         url: '/api/registration',
         method: 'POST',
         body: { username, password },
       }),
     }),
-    auth: builder.query<any, void>({
+    auth: builder.query<TResAuth, void>({
       query: () => ({
         url: '/api/auth',
         method: 'GET',
@@ -58,8 +69,8 @@ export const appApi = createApi({
             data: { user, token },
           } = await queryFulfilled;
 
-          dispatch(authActions.setUser(user));
-          dispatch(authActions.setAuth(true));
+          dispatch(appActions.setUser(user));
+          dispatch(appActions.setAuth(true));
 
           localStorage.setItem('token', token);
         } catch (err) {
@@ -68,27 +79,25 @@ export const appApi = createApi({
         }
       },
     }),
-    getPhotos: builder.query<any, void>({
+    // photos
+    getPhotos: builder.query<TPhoto[], void>({
       query: () => `/api/photos`,
+      providesTags: ['Photos'],
     }),
-    getComments: builder.query({
-      query: () => '/posts',
-      providesTags: ['Comment'],
-    }),
-    addNewComment: builder.mutation({
+    addNewComment: builder.mutation<TResAddNewComment, TPostAddNewComment>({
       query: ({ user, photoId, commentText }) => ({
         url: '/api/comments',
         method: 'POST',
         body: { user, photoId, commentText },
       }),
-      invalidatesTags: ['Comment'],
+      invalidatesTags: ['Photos'],
     }),
-    deleteComment: builder.mutation({
+    deleteComment: builder.mutation<TResDeleteComment, string>({
       query: (id) => ({
         url: `/api/comments/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Comment'],
+      invalidatesTags: ['Photos'],
     }),
   }),
 });

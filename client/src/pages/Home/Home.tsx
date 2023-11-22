@@ -2,18 +2,15 @@ import { useSelector } from 'hooks/useSelector';
 import { HomeStyled } from './styles';
 import { Gallery } from 'components';
 import { Navigate } from 'react-router-dom';
-import { useGetPhotosQuery } from 'store/api/authApi';
 
 const Home = () => {
-  const isAuth = useSelector((state) => state.auth.isAuth);
-
-  const { data } = useGetPhotosQuery();
+  const isAuth = useSelector((state) => state.app.isAuth);
 
   return (
     <>
       {isAuth ? (
         <HomeStyled>
-          <Gallery photos={data} />
+          <Gallery />
         </HomeStyled>
       ) : (
         <Navigate to={{ pathname: '/login' }} />

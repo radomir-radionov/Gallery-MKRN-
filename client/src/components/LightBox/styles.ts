@@ -2,24 +2,25 @@ import styled from 'styled-components';
 
 export const LightBoxStyled = styled.article`
   position: fixed;
-  top: 0;
-  left: 0;
   z-index: 10;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.65);
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
 `;
 
 export const Container = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 100%;
-  max-width: 850px;
+  max-width: 650px;
+  margin: 5% auto;
   padding: 20px;
-  transform: translate(-50%, -50%) scale(0.9);
-  background: #fff;
-  border-radius: 6px;
+  border: 1px solid #888;
+  background-color: #fefefe;
+
+  @media (max-width: 768px) {
+    margin: 5%;
+  }
 `;
 
 export const Header = styled.header`
@@ -37,8 +38,8 @@ export const PreviewImg = styled.div`
 `;
 
 export const ImgBox = styled.div`
-  max-height: 65vh;
   max-width: 90vh;
+  max-height: 65vh;
 `;
 
 export const Img = styled.img`

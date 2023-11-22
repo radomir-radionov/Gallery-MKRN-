@@ -1,20 +1,21 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { TUser } from 'types/app';
 
-interface AuthState {
+interface AppState {
   currentUser: TUser;
   isAuth: boolean;
 }
 
-const initialState: AuthState = {
+const initialState: AppState = {
   currentUser: {} as TUser,
   isAuth: false,
 };
 
-const authSlice = createSlice({
-  name: 'AUTH',
+const appSlice = createSlice({
+  name: 'App',
   initialState,
   reducers: {
+    // auth
     setUser: (state, action: PayloadAction<TUser>) => {
       state.currentUser = action.payload;
     },
@@ -28,6 +29,6 @@ const authSlice = createSlice({
   },
 });
 
-export const authActions = authSlice.actions;
+export const appActions = appSlice.actions;
 
-export default authSlice.reducer;
+export default appSlice.reducer;

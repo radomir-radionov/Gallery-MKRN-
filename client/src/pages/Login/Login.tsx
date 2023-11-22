@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { FormGroup, Input, LoginForm, Label, Button, Title } from './styles';
 import { useSelector } from 'hooks/useSelector';
-import { useLoginMutation } from 'store/api/authApi';
+import { useLoginMutation } from 'store/api/api';
 
 type TForm = {
   username: string;
@@ -11,7 +11,7 @@ type TForm = {
 };
 
 const Login = () => {
-  const isAuth = useSelector((state) => state.auth.isAuth);
+  const isAuth = useSelector((state) => state.app.isAuth);
   const navigate = useNavigate();
 
   const [login] = useLoginMutation();
